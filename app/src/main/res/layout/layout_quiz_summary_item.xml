@@ -21,8 +21,9 @@
             android:id="@+id/questionTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_dark"
+            android:textColor="@color/text_light"
             android:textSize="14sp"
+            android:textStyle="bold"
             tools:text="Q. Who is the best cricketer in the world?" />
 
         <TextView
