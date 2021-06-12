@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import androidx.appcompat.app.AppCompatActivity
-import co.diwakar.trivia.QuizActivity
+import co.diwakar.trivia.quiz.QuizActivity
 import co.diwakar.trivia.R
 import co.diwakar.trivia.config.Extras
 import co.diwakar.trivia.utils.setupActionBar

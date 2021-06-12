@@ -24,7 +24,7 @@
             android:name=".registration.RegistrationActivity"
             android:theme="@style/Theme.Trivia" />
         <activity
-            android:name=".QuizActivity"
+            android:name=".quiz.QuizActivity"
             android:theme="@style/Theme.Trivia" />
     </application>
 

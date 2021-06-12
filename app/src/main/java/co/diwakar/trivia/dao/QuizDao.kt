@@ -1,6 +1,5 @@
 package co.diwakar.trivia.dao
 
-import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,5 +12,5 @@ interface QuizDao {
     suspend fun addQuiz(toAdd: Quiz)
 
     @Query("select * from quiz_table ORDER BY quizAttemptedAt DESC")
-    suspend fun getAll(): PagingSource<Int, Quiz>
+    suspend fun getAll(): List<Quiz>
 }

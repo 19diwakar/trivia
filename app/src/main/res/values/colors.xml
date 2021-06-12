@@ -11,4 +11,8 @@
     <color name="error_color">#C62828</color>
     <color name="hint_color_active">#333333</color>
     <color name="hint_color_inactive">#999999</color>
+    <color name="text_dark">#333333</color>
+
+    <color name="option_selected">#4CAF50</color>
+    <color name="option_unselected">#BBBBBB</color>
 </resources>
