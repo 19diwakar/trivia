@@ -11,6 +11,9 @@ class QuizRepository @Inject constructor(
     private val gson: Gson
 ) {
 
+    /**
+     * create quiz object with all possible data and add it to the [quizDatabase]
+     * */
     suspend fun addQuiz(userName: String, submissions: List<QuestionAnswer>) {
         val quiz = Quiz(
             id = 0,
@@ -26,13 +29,13 @@ class QuizRepository @Inject constructor(
     }
 
     private val questionOne = QuestionAnswer(
-        value = "Who is the best cricketer in the world?",
+        question = "Who is the best cricketer in the world?",
         options = listOf("Sachin Tendulkar", "Virat Kolli", "Adam Gilchirst", "Jacques Kallis"),
         isMultiSelect = false
     )
 
     private val questionTwo = QuestionAnswer(
-        value = "What are the colors in the Indian national flag?",
+        question = "What are the colors in the Indian national flag?",
         options = listOf("White", "Yellow", "Orange", "Green"),
         isMultiSelect = true
     )

@@ -8,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import co.diwakar.trivia.R
 import kotlinx.android.synthetic.main.layout_option_item.view.*
 
+/**
+ * In this we will show all possible options related to question and will handle option selection process
+ * [options] are all possible options
+ * [selectedOptions] are selected options by user
+ * [isMultiSelected] will be true if multi selection question otherwise it will be false
+ * */
 class QuizOptionsAdapter : RecyclerView.Adapter<OptionViewHolder>() {
 
     private val options = mutableListOf<String>()
@@ -25,10 +31,16 @@ class QuizOptionsAdapter : RecyclerView.Adapter<OptionViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: OptionViewHolder, position: Int) {
+        /**
+         * isSelected will be true if [selectedOptions] contains it otherwise false
+         * */
         val isSelected = selectedOptions.contains(options[position])
         holder.onBind(options[position], position, isSelected)
     }
 
+    /**
+     * clear and add all possible options into [options] and all selected options into [selectedOptions]
+     * */
     fun addAll(options: List<String>, selectedOptions: List<String>) {
         this.options.clear()
         this.options.addAll(options)
@@ -36,11 +48,21 @@ class QuizOptionsAdapter : RecyclerView.Adapter<OptionViewHolder>() {
         this.selectedOptions.addAll(selectedOptions)
     }
 
+    /**
+     * handle view holder item click listener
+     * */
     private val clickListener = View.OnClickListener {
-        val position = it.getTag(R.id.position) as Int
+        val position = it.getTag(R.id.postion) as Int
         val selectedOption = options[position]
 
+        /**
+         * if [selectedOptions] does not contain current selected option then we add selected option
+         * otherwise if already selected then remove that option from [selectedOptions]
+         * */
         if (selectedOptions.contains(selectedOption).not()) {
+            /**
+             * if [isMultiSelected] is false then clear [selectedOptions] first
+             * */
             if (isMultiSelected.not()) {
                 selectedOptions.clear()
             }
@@ -51,11 +73,17 @@ class QuizOptionsAdapter : RecyclerView.Adapter<OptionViewHolder>() {
         notifyDataSetChanged()
     }
 
+    /**
+     * will return all selected options
+     * */
     fun getSelectedOptions(): List<String> {
         return selectedOptions
     }
 }
 
+/**
+ * In this class we add option data with views
+ * */
 class OptionViewHolder(itemView: View, private val onClickListener: View.OnClickListener) :
     RecyclerView.ViewHolder(itemView) {
 
@@ -66,6 +94,6 @@ class OptionViewHolder(itemView: View, private val onClickListener: View.OnClick
         optionValueTxt.text = option
         selectionStateIv.isSelected = isSelected
         itemView.setOnClickListener(onClickListener)
-        itemView.setTag(R.id.position, position)
+        itemView.setTag(R.id.postion, position)
     }
 }

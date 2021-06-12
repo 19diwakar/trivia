@@ -24,9 +24,19 @@ class QuizActivity : AppCompatActivity() {
     private val quizViewModel: QuizViewModel by viewModels()
     private val quizOptionAdapter = QuizOptionsAdapter()
 
+    /**
+     * [setupExtras] to store the user name in userName from [quizViewModel]
+     * then [setupViews] for setting up [optionsView] with [quizOptionAdapter]
+     * setup different observers ([stateObserver],[questionAnswerObserver], [questionStatusObserver])
+     * after that fetch question list.
+     * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
+
+        /**
+         * setup custom action bar and title for the current screen
+         * */
         setupActionBar(appToolbar)
         setTitle(R.string.triva_quiz)
 
@@ -40,28 +50,41 @@ class QuizActivity : AppCompatActivity() {
         quizViewModel.fetchQuestions()
     }
 
-
+    /**
+     * set the user name in userName from [quizViewModel]
+     * */
     private fun setupExtras() {
         val userName = intent.getStringExtra(Extras.USER_NAME)
         quizViewModel.userName = userName
     }
 
+    /**
+     * set linear layout manager with [optionsView]
+     * set [quizOptionAdapter] with [optionsView]
+     * */
     private fun setupViews() {
         optionsView.layoutManager = LinearLayoutManager(this)
         optionsView.adapter = quizOptionAdapter
     }
 
+    /**
+     * on [nextBtn] click submit current question answer list of string.
+     * */
     private fun setupClicks() {
         nextBtn.setOnClickListener {
             quizViewModel.submitAnswer(quizOptionAdapter.getSelectedOptions())
         }
     }
 
+    /**
+     * set question type message in [questionTypeTxt] whether it is single choice or multiple choice
+     * setup data in [quizOptionAdapter] if it is not null
+     * */
     private val questionAnswerObserver: Observer<QuestionAnswer> = Observer {
         if (it == null) {
             showMessage(getString(R.string.something_went_wrong))
         } else {
-            questionTxt.text = String.format("Q. %s", it.value)
+            questionTxt.text = String.format("Q. %s", it.question)
             val questionTypeMessage = if (it.isMultiSelect) {
                 getString(R.string.multi_select_message)
             } else {
@@ -69,13 +92,19 @@ class QuizActivity : AppCompatActivity() {
             }
             questionTypeTxt.text = questionTypeMessage
             quizOptionAdapter.isMultiSelected = it.isMultiSelect
-            quizOptionAdapter.addAll(it.options, it.answer ?: emptyList())
+            quizOptionAdapter.addAll(it.options, it.answer)
             quizOptionAdapter.notifyDataSetChanged()
         }
     }
 
+    /**
+     * set question number status in [questionStatusTxt]
+     * */
     private val questionStatusObserver: Observer<Pair<Int, Int>> = Observer {
         it?.let { status ->
+            /**
+             * [status] is pair of int where first value is current question number and second value is total questions
+             * */
             questionStatusTxt.text = String.format("Q%d of %d", status.first + 1, status.second)
         }
     }
@@ -112,6 +141,10 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * set user name as extras and start quiz summary activity
+     * then finish this activity
+     * */
     private fun moveToNextScreen() {
         Intent(this@QuizActivity, QuizSummaryActivity::class.java).apply {
             putExtra(Extras.USER_NAME, quizViewModel.userName)

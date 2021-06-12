@@ -13,6 +13,9 @@ class QuizSummaryRepository @Inject constructor(
     private val gson: Gson
 ) {
 
+    /**
+     * will return last attempted quiz results and questions
+     * */
     suspend fun getLastQuizSummary(): List<QuestionAnswer> {
         Timber.e("${quizDatabase.quizDao().getAll()}")
         val latestQuiz = quizDatabase.quizDao().getAll().first()

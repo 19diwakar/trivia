@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main._toolbar.*
 import kotlinx.android.synthetic.main.activity_quiz_summary.*
+import kotlinx.android.synthetic.main.activity_quiz_summary.progressOverlay
 import java.io.IOException
 
 @AndroidEntryPoint
@@ -27,10 +28,19 @@ class QuizSummaryActivity : AppCompatActivity() {
     private val summaryAdapter = QuizSummaryAdapter()
     private val summaViewModel: QuizSummaryViewModel by viewModels()
 
+    /**
+     * [setupExtras] to store the user name in userName from [summaViewModel]
+     * then [setupViews] for setting up [summaryView] with [summaryAdapter]
+     * setup [stateObserver]
+     * after that fetch last attempted quiz.
+     * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_summary)
 
+        /**
+         * setup custom action bar and title for the current screen
+         * */
         setupActionBar(appToolbar)
         setTitle(R.string.last_quiz_summary)
 
@@ -41,6 +51,9 @@ class QuizSummaryActivity : AppCompatActivity() {
         summaViewModel.fetchLastSummary()
     }
 
+    /**
+     * set the user name in userName from [summaViewModel]
+     * */
     private fun setupExtras() {
         intent.getStringExtra(Extras.USER_NAME)?.let { userName ->
             summaViewModel.userName = userName
@@ -48,6 +61,10 @@ class QuizSummaryActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * set linear layout manager with [summaryView]
+     * set [summaryAdapter] with [summaryView]
+     * */
     private fun setupViews() {
         summaryView.layoutManager = LinearLayoutManager(this)
         summaryView.adapter = summaryAdapter
@@ -89,6 +106,10 @@ class QuizSummaryActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * set user name as extras and start Quiz activity again
+     * then finish this activity
+     * */
     private fun moveToQuizScreen() {
         Intent(this@QuizSummaryActivity, QuizActivity::class.java).apply {
             putExtra(Extras.USER_NAME, summaViewModel.userName)
@@ -97,6 +118,9 @@ class QuizSummaryActivity : AppCompatActivity() {
         finish()
     }
 
+    /**
+     * move to the [HistoryActivity] where all attempted quiz will be shown
+     * */
     private fun moveToHistoryScreen() {
         Intent(this@QuizSummaryActivity, HistoryActivity::class.java).apply {
             startActivity(this)

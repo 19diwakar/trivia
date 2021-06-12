@@ -6,6 +6,9 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import co.diwakar.trivia.models.Quiz
 
+/**
+ * Quiz Dao uses to insert a quiz and fetch all quiz data
+ * */
 @Dao
 interface QuizDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)

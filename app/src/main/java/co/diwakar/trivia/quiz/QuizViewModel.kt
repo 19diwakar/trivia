@@ -13,15 +13,28 @@ import javax.inject.Inject
 @HiltViewModel
 class QuizViewModel @Inject constructor(private val quizRepository: QuizRepository) : ViewModel() {
 
+    /**
+     * [_state] updates all possible activity states according to that we update views
+     * */
     private val _state: MutableLiveData<ActivityState> = MutableLiveData()
     val state: LiveData<ActivityState> = _state
 
+    /**
+     * [currentPosition] is the current question position
+     * [questions] are the list of all questions
+     * */
     private var currentPosition = 0
     private val questions = mutableListOf<QuestionAnswer>()
 
+    /**
+     * [_questionAnswer] use to observe current question
+     * */
     private val _questionAnswer: MutableLiveData<QuestionAnswer> = MutableLiveData()
     val questionAnswer: LiveData<QuestionAnswer> = _questionAnswer
 
+    /**
+     * [_questionStatus] is pair of int where first value is current question number and second value is total questions
+     * */
     private val _questionStatus: MutableLiveData<Pair<Int, Int>> = MutableLiveData()
     val questionStatus: LiveData<Pair<Int, Int>> = _questionStatus
 
@@ -31,6 +44,10 @@ class QuizViewModel @Inject constructor(private val quizRepository: QuizReposito
         _state.value = ErrorState(throwable as Exception)
     }
 
+    /**
+     * we fetch questions from [quizRepository] and add all to [questions] if [questions] are empty
+     * update question status and set the current question
+     * */
     fun fetchQuestions() {
         _state.value = ProgressState
         if (questions.isEmpty()) {
@@ -41,6 +58,11 @@ class QuizViewModel @Inject constructor(private val quizRepository: QuizReposito
         _state.value = InitialState
     }
 
+    /**
+     * set current question answer
+     * if [currentPosition] is equal to the [questions] list size then submit quiz
+     * otherwise load next question
+     * */
     fun submitAnswer(answer: List<String>) {
         viewModelScope.launch(exceptionHandler) {
             _state.value = ProgressState
@@ -56,6 +78,10 @@ class QuizViewModel @Inject constructor(private val quizRepository: QuizReposito
         }
     }
 
+    /**
+     * if user name is empty then set [InvalidUserState]
+     * otherwise add quiz to the local data base and set state to [QuizCompletedState]
+     * */
     private suspend fun submitQuiz() {
         val userName = this.userName
         _state.value = if (userName.isNullOrEmpty()) {

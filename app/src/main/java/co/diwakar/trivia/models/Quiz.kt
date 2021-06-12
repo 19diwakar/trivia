@@ -16,6 +16,10 @@ data class Quiz(
     val submission: String,
     val quizAttemptedAt: Long,
 ) {
+
+    /**
+     * convert [submission] string into [QuestionAnswer] list
+     * */
     fun getQuestionsAnswers(): List<QuestionAnswer> {
         val gson = GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -27,6 +31,9 @@ data class Quiz(
         }
     }
 
+    /**
+     * convert [quizAttemptedAt] into a particular date format
+     * */
     fun getQuizTime(): String {
         val dateFormat = SimpleDateFormat("dd MMM,yyyy hh:mm a", Locale.getDefault())
         return dateFormat.format(quizAttemptedAt)

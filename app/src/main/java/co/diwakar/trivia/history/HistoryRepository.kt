@@ -6,6 +6,9 @@ import javax.inject.Inject
 
 class HistoryRepository @Inject constructor(private val quizDatabase: QuizDatabase) {
 
+    /**
+     * will return all attempted quiz stored in Quiz database
+     * */
     suspend fun getAllQuiz(): List<Quiz> {
         return quizDatabase.quizDao().getAll()
     }

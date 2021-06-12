@@ -9,6 +9,10 @@ import co.diwakar.trivia.models.QuestionAnswer
 import kotlinx.android.synthetic.main.activity_quiz.view.questionTxt
 import kotlinx.android.synthetic.main.layout_quiz_summary_item.view.*
 
+/**
+ * In this we will show all attempted questions and answers
+ * [summaryList] is used to store all attempted questions and answers
+ * */
 class QuizSummaryAdapter : RecyclerView.Adapter<SummaryViewHolder>() {
 
     private val summaryList = mutableListOf<QuestionAnswer>()
@@ -38,7 +42,7 @@ class SummaryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val answerTxt = itemView.answerTxt
 
     fun bind(summary: QuestionAnswer) {
-        questionTxt.text = String.format("Q. %s", summary.value)
+        questionTxt.text = String.format("Q. %s", summary.question)
         answerTxt.text = String.format("Ans. %s", summary.answer.joinToString(","))
     }
 }

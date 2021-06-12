@@ -23,6 +23,12 @@ class HistoryActivity : AppCompatActivity() {
     private val historyAdapter = HistoryAdapter()
     private val historyViewModel: HistoryViewModel by viewModels()
 
+    /**
+     * setup custom action bar and title for the current screen
+     * then [setupViews] for setting up [historyView] with [historyAdapter]
+     * setup [stateObserver]
+     * after that fetch history list.
+     * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
@@ -35,6 +41,10 @@ class HistoryActivity : AppCompatActivity() {
         historyViewModel.fetchHistory()
     }
 
+    /**
+     * set linear layout manager with [historyView]
+     * set [historyAdapter] with [historyView]
+     * */
     private fun setupViews() {
         historyView.layoutManager = LinearLayoutManager(this)
         historyView.adapter = historyAdapter

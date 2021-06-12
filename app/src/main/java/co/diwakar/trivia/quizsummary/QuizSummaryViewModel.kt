@@ -19,6 +19,9 @@ class QuizSummaryViewModel @Inject constructor(private val quizSummaryRepository
 
     var userName: String? = null
 
+    /**
+     * [_state] updates all possible activity states according to that we update views
+     * */
     private val _state: MutableLiveData<ActivityState> = MutableLiveData()
     val state: LiveData<ActivityState> = _state
 
