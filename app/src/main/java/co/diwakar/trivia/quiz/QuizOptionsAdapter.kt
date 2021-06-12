@@ -8,23 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 import co.diwakar.trivia.R
 import kotlinx.android.synthetic.main.layout_option_item.view.*
 
-class QuizOptionsAdapter : RecyclerView.Adapter<FilterViewHolder>() {
+class QuizOptionsAdapter : RecyclerView.Adapter<OptionViewHolder>() {
 
     private val options = mutableListOf<String>()
     private val selectedOptions: MutableList<String> = mutableListOf()
     var isMultiSelected: Boolean = false
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.layout_option_item, parent, false)
-        return FilterViewHolder(view, clickListener)
+        return OptionViewHolder(view, clickListener)
     }
 
     override fun getItemCount(): Int {
         return options.size
     }
 
-    override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: OptionViewHolder, position: Int) {
         val isSelected = selectedOptions.contains(options[position])
         holder.onBind(options[position], position, isSelected)
     }
@@ -56,7 +56,7 @@ class QuizOptionsAdapter : RecyclerView.Adapter<FilterViewHolder>() {
     }
 }
 
-class FilterViewHolder(itemView: View, private val onClickListener: View.OnClickListener) :
+class OptionViewHolder(itemView: View, private val onClickListener: View.OnClickListener) :
     RecyclerView.ViewHolder(itemView) {
 
     private val optionValueTxt: TextView = itemView.optionValueTxt
@@ -68,8 +68,4 @@ class FilterViewHolder(itemView: View, private val onClickListener: View.OnClick
         itemView.setOnClickListener(onClickListener)
         itemView.setTag(R.id.position, position)
     }
-}
-
-interface OptionSelectionListener {
-    fun onSelected(options: List<String>)
 }

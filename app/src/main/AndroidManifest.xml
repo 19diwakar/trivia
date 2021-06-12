@@ -26,6 +26,9 @@
         <activity
             android:name=".quiz.QuizActivity"
             android:theme="@style/Theme.Trivia" />
+        <activity
+            android:name=".quizsummary.QuizSummaryActivity"
+            android:theme="@style/Theme.Trivia" />
     </application>
 
 </manifest>

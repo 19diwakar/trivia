@@ -9,4 +9,8 @@
     <string name="multi_select_message">You can can select more than one option.</string>
     <string name="single_select_message">You can only selection one option.</string>
     <string name="triva_quiz">Trivia Quiz</string>
+    <string name="invalid_user_name">Invalid Username!</string>
+    <string name="history">History</string>
+    <string name="restart">Restart</string>
+    <string name="last_quiz_summary">Last Quiz Summary</string>
 </resources>

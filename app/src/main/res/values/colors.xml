@@ -15,4 +15,5 @@
 
     <color name="option_selected">#4CAF50</color>
     <color name="option_unselected">#BBBBBB</color>
+    <color name="text_light">#666666</color>
 </resources>

@@ -1,5 +1,6 @@
 package co.diwakar.trivia.quiz
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.diwakar.trivia.R
 import co.diwakar.trivia.config.Extras
 import co.diwakar.trivia.models.*
+import co.diwakar.trivia.quizsummary.QuizSummaryActivity
 import co.diwakar.trivia.utils.setupActionBar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -88,9 +90,11 @@ class QuizActivity : AppCompatActivity() {
             }
             QuizViewModel.QuizCompletedState -> {
                 progressOverlay.visibility = View.GONE
+                moveToNextScreen()
             }
             QuizViewModel.InvalidUserState -> {
                 progressOverlay.visibility = View.GONE
+                showMessage(getString(R.string.invalid_user_name))
             }
             is ErrorState -> {
                 progressOverlay.visibility = View.GONE
@@ -106,6 +110,14 @@ class QuizActivity : AppCompatActivity() {
                 showMessage(errorMessage ?: getString(R.string.something_went_wrong))
             }
         }
+    }
+
+    private fun moveToNextScreen() {
+        Intent(this@QuizActivity, QuizSummaryActivity::class.java).apply {
+            putExtra(Extras.USER_NAME, quizViewModel.userName)
+            startActivity(this)
+        }
+        finish()
     }
 
     private fun showMessage(message: String) {

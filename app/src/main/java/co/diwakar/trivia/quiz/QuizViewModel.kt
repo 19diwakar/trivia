@@ -44,7 +44,7 @@ class QuizViewModel @Inject constructor(private val quizRepository: QuizReposito
     fun submitAnswer(answer: List<String>) {
         viewModelScope.launch(exceptionHandler) {
             _state.value = ProgressState
-            questions[currentPosition].answer = answer
+            questions[currentPosition].answer.addAll(answer)
             if (currentPosition == questions.size - 1) {
                 submitQuiz()
             } else {
