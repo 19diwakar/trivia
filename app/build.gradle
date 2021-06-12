@@ -62,8 +62,15 @@ dependencies {
     //kotlin extension
     implementation "androidx.activity:activity-ktx:$activity_extention_version"
 
-    // hilt
+    //hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_compiler"
+
+    //room
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //paging
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 }

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Trivia</string>
     <string name="registration_title">Register Yourself</string>
+    <string name="your_name">Your Name</string>
+    <string name="start">Let\'s Start</string>
+    <string name="please_enter_valid_user_name">Please enter valid user name!</string>
 </resources>
