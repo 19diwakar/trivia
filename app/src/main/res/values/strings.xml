@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Trivia</string>
+    <string name="registration_title">Register Yourself</string>
 </resources>
