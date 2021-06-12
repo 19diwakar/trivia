@@ -35,7 +35,7 @@ class QuizActivity : AppCompatActivity() {
         setupClicks()
 
         quizViewModel.state.observe(this, stateObserver)
-        quizViewModel.question.observe(this, questionObserver)
+        quizViewModel.questionAnswer.observe(this, questionAnswerObserver)
         quizViewModel.questionStatus.observe(this, questionStatusObserver)
         quizViewModel.fetchQuestions()
     }
@@ -57,7 +57,7 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
-    private val questionObserver: Observer<Question> = Observer {
+    private val questionAnswerObserver: Observer<QuestionAnswer> = Observer {
         if (it == null) {
             showMessage(getString(R.string.something_went_wrong))
         } else {

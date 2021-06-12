@@ -1,6 +1,6 @@
 package co.diwakar.trivia.models
 
-data class Question(
+data class QuestionAnswer(
     val value: String,
     val options: List<String>,
     val isMultiSelect: Boolean,

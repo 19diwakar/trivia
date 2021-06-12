@@ -1,5 +1,6 @@
 package co.diwakar.trivia.quizsummary
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -8,9 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.diwakar.trivia.R
 import co.diwakar.trivia.config.Extras
+import co.diwakar.trivia.history.HistoryActivity
 import co.diwakar.trivia.models.ActivityState
 import co.diwakar.trivia.models.ErrorState
 import co.diwakar.trivia.models.ProgressState
+import co.diwakar.trivia.quiz.QuizActivity
 import co.diwakar.trivia.utils.setupActionBar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +34,7 @@ class QuizSummaryActivity : AppCompatActivity() {
         setupActionBar(appToolbar)
         setTitle(R.string.last_quiz_summary)
 
+        setupClicks()
         setupExtras()
         setupViews()
         summaViewModel.state.observe(this, stateObserver)
@@ -39,6 +43,7 @@ class QuizSummaryActivity : AppCompatActivity() {
 
     private fun setupExtras() {
         intent.getStringExtra(Extras.USER_NAME)?.let { userName ->
+            summaViewModel.userName = userName
             userMessageTxt.text = String.format("Hello! %s", userName)
         }
     }
@@ -46,6 +51,16 @@ class QuizSummaryActivity : AppCompatActivity() {
     private fun setupViews() {
         summaryView.layoutManager = LinearLayoutManager(this)
         summaryView.adapter = summaryAdapter
+    }
+
+    private fun setupClicks() {
+        restartBtn.setOnClickListener {
+            moveToQuizScreen()
+        }
+
+        historyBtn.setOnClickListener {
+            moveToHistoryScreen()
+        }
     }
 
     private val stateObserver: Observer<ActivityState> = Observer {
@@ -71,6 +86,20 @@ class QuizSummaryActivity : AppCompatActivity() {
 
                 showMessage(errorMessage ?: getString(R.string.something_went_wrong))
             }
+        }
+    }
+
+    private fun moveToQuizScreen() {
+        Intent(this@QuizSummaryActivity, QuizActivity::class.java).apply {
+            putExtra(Extras.USER_NAME, summaViewModel.userName)
+            startActivity(this)
+        }
+        finish()
+    }
+
+    private fun moveToHistoryScreen() {
+        Intent(this@QuizSummaryActivity, HistoryActivity::class.java).apply {
+            startActivity(this)
         }
     }
 

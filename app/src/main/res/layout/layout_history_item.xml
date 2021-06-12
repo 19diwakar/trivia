@@ -18,20 +18,28 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/questionTxt"
+            android:id="@+id/gameStatusTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/text_dark"
-            android:textSize="14sp"
-            tools:text="Q. Who is the best cricketer in the world?" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Game 1: 12 June 2021 10:23 PM" />
 
         <TextView
-            android:id="@+id/answerTxt"
+            android:id="@+id/userNameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_dark"
+            android:textSize="16sp"
             android:layout_marginTop="4dp"
-            android:textColor="@color/text_light"
-            android:textSize="14sp"
-            tools:text="Your Ans. Orange" />
+            tools:text="Name: Diwakar" />
+
+        <LinearLayout
+            android:id="@+id/questionAnswerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

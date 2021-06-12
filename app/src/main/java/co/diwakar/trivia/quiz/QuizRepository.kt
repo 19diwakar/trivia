@@ -1,7 +1,7 @@
 package co.diwakar.trivia.quiz
 
 import co.diwakar.trivia.database.QuizDatabase
-import co.diwakar.trivia.models.Question
+import co.diwakar.trivia.models.QuestionAnswer
 import co.diwakar.trivia.models.Quiz
 import com.google.gson.Gson
 import javax.inject.Inject
@@ -11,7 +11,7 @@ class QuizRepository @Inject constructor(
     private val gson: Gson
 ) {
 
-    suspend fun addQuiz(userName: String, submissions: List<Question>) {
+    suspend fun addQuiz(userName: String, submissions: List<QuestionAnswer>) {
         val quiz = Quiz(
             id = 0,
             userName = userName,
@@ -21,17 +21,17 @@ class QuizRepository @Inject constructor(
         quizDatabase.quizDao().addQuiz(quiz)
     }
 
-    fun fetchQuestions(): List<Question> {
+    fun fetchQuestions(): List<QuestionAnswer> {
         return listOf(questionOne, questionTwo)
     }
 
-    private val questionOne = Question(
+    private val questionOne = QuestionAnswer(
         value = "Who is the best cricketer in the world?",
         options = listOf("Sachin Tendulkar", "Virat Kolli", "Adam Gilchirst", "Jacques Kallis"),
         isMultiSelect = false
     )
 
-    private val questionTwo = Question(
+    private val questionTwo = QuestionAnswer(
         value = "What are the colors in the Indian national flag?",
         options = listOf("White", "Yellow", "Orange", "Green"),
         isMultiSelect = true

@@ -25,12 +25,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/summaryView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userMessageTxt" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/bottomContainer"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:cardBackgroundColor="@color/white"

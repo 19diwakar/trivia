@@ -17,10 +17,10 @@ class QuizViewModel @Inject constructor(private val quizRepository: QuizReposito
     val state: LiveData<ActivityState> = _state
 
     private var currentPosition = 0
-    private val questions = mutableListOf<Question>()
+    private val questions = mutableListOf<QuestionAnswer>()
 
-    private val _question: MutableLiveData<Question> = MutableLiveData()
-    val question: LiveData<Question> = _question
+    private val _questionAnswer: MutableLiveData<QuestionAnswer> = MutableLiveData()
+    val questionAnswer: LiveData<QuestionAnswer> = _questionAnswer
 
     private val _questionStatus: MutableLiveData<Pair<Int, Int>> = MutableLiveData()
     val questionStatus: LiveData<Pair<Int, Int>> = _questionStatus
@@ -37,7 +37,7 @@ class QuizViewModel @Inject constructor(private val quizRepository: QuizReposito
             questions.addAll(quizRepository.fetchQuestions())
         }
         _questionStatus.value = Pair(currentPosition, questions.size)
-        _question.value = questions[currentPosition]
+        _questionAnswer.value = questions[currentPosition]
         _state.value = InitialState
     }
 
@@ -50,7 +50,7 @@ class QuizViewModel @Inject constructor(private val quizRepository: QuizReposito
             } else {
                 currentPosition++
                 _questionStatus.value = Pair(currentPosition, questions.size)
-                _question.value = questions[currentPosition]
+                _questionAnswer.value = questions[currentPosition]
                 _state.value = InitialState
             }
         }
