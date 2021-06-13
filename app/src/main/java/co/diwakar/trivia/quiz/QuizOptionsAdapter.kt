@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.layout_option_item.view.*
  * [selectedOptions] are selected options by user
  * [isMultiSelected] will be true if multi selection question otherwise it will be false
  * */
-class QuizOptionsAdapter : RecyclerView.Adapter<OptionViewHolder>() {
+class QuizOptionsAdapter(private val optionSelectionListener: OptionSelectionListener) :
+    RecyclerView.Adapter<OptionViewHolder>() {
 
     private val options = mutableListOf<String>()
     private val selectedOptions: MutableList<String> = mutableListOf()
@@ -70,6 +71,11 @@ class QuizOptionsAdapter : RecyclerView.Adapter<OptionViewHolder>() {
         } else {
             selectedOptions.remove(selectedOption)
         }
+        /**
+         * if [selectedOptions] are not empty then set isAtLeastSingleSelected true for
+         * [optionSelectionListener] otherwise set it to false
+         * */
+        optionSelectionListener.onOptionClicked(selectedOption.isNotEmpty())
         notifyDataSetChanged()
     }
 
@@ -96,4 +102,8 @@ class OptionViewHolder(itemView: View, private val onClickListener: View.OnClick
         itemView.setOnClickListener(onClickListener)
         itemView.setTag(R.id.postion, position)
     }
+}
+
+interface OptionSelectionListener {
+    fun onOptionClicked(isAtLeastSingleSelected: Boolean)
 }

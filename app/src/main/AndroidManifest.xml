@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="co.diwakar.trivia">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="co.diwakar.trivia"
+    tools:ignore="LockedOrientationActivity">
 
     <application
         android:name=".TriviaApp"
@@ -25,6 +27,7 @@
             android:theme="@style/Theme.Trivia" />
         <activity
             android:name=".quiz.QuizActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Trivia" />
         <activity
             android:name=".quizsummary.QuizSummaryActivity"

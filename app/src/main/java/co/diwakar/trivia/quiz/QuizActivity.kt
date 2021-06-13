@@ -22,7 +22,16 @@ import java.io.IOException
 class QuizActivity : AppCompatActivity() {
 
     private val quizViewModel: QuizViewModel by viewModels()
-    private val quizOptionAdapter = QuizOptionsAdapter()
+
+    private val optionSelectionListener = object : OptionSelectionListener {
+        override fun onOptionClicked(isAtLeastSingleSelected: Boolean) {
+            /**
+             * if at least one option is selected only then user can move to the next question
+             * */
+            nextBtn.isEnabled = isAtLeastSingleSelected
+        }
+    }
+    private val quizOptionAdapter = QuizOptionsAdapter(optionSelectionListener)
 
     /**
      * [setupExtras] to store the user name in userName from [quizViewModel]
@@ -61,10 +70,12 @@ class QuizActivity : AppCompatActivity() {
     /**
      * set linear layout manager with [optionsView]
      * set [quizOptionAdapter] with [optionsView]
+     * set [nextBtn] disable initially as no option is selected
      * */
     private fun setupViews() {
         optionsView.layoutManager = LinearLayoutManager(this)
         optionsView.adapter = quizOptionAdapter
+        nextBtn.isEnabled = false
     }
 
     /**
