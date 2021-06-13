@@ -75,7 +75,7 @@ class QuizOptionsAdapter(private val optionSelectionListener: OptionSelectionLis
          * if [selectedOptions] are not empty then set isAtLeastSingleSelected true for
          * [optionSelectionListener] otherwise set it to false
          * */
-        optionSelectionListener.onOptionClicked(selectedOption.isNotEmpty())
+        optionSelectionListener.onOptionClicked(selectedOptions.isNotEmpty())
         notifyDataSetChanged()
     }
 

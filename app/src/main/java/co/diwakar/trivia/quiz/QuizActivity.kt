@@ -70,12 +70,10 @@ class QuizActivity : AppCompatActivity() {
     /**
      * set linear layout manager with [optionsView]
      * set [quizOptionAdapter] with [optionsView]
-     * set [nextBtn] disable initially as no option is selected
      * */
     private fun setupViews() {
         optionsView.layoutManager = LinearLayoutManager(this)
         optionsView.adapter = quizOptionAdapter
-        nextBtn.isEnabled = false
     }
 
     /**
@@ -90,6 +88,7 @@ class QuizActivity : AppCompatActivity() {
     /**
      * set question type message in [questionTypeTxt] whether it is single choice or multiple choice
      * setup data in [quizOptionAdapter] if it is not null
+     * set [nextBtn] disable before loading next question
      * */
     private val questionAnswerObserver: Observer<QuestionAnswer> = Observer {
         if (it == null) {
@@ -102,6 +101,7 @@ class QuizActivity : AppCompatActivity() {
                 getString(R.string.single_select_message)
             }
             questionTypeTxt.text = questionTypeMessage
+            nextBtn.isEnabled = false
             quizOptionAdapter.isMultiSelected = it.isMultiSelect
             quizOptionAdapter.addAll(it.options, it.answer)
             quizOptionAdapter.notifyDataSetChanged()
