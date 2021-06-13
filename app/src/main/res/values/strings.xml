@@ -6,8 +6,8 @@
     <string name="please_enter_valid_user_name">Please enter valid user name!</string>
     <string name="something_went_wrong">Oops! something went wrong!</string>
     <string name="next">Next</string>
-    <string name="multi_select_message">You can can select more than one option.</string>
-    <string name="single_select_message">You can only selection one option.</string>
+    <string name="multi_select_message">You can select more than one options.</string>
+    <string name="single_select_message">You can select only one option.</string>
     <string name="triva_quiz">Trivia Quiz</string>
     <string name="invalid_user_name">Invalid Username!</string>
     <string name="history">History</string>
